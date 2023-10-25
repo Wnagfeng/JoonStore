@@ -1,58 +1,76 @@
-const { EventStore } = require('../src/EventStore');
+const { EventStore } = require('../src');
 const axios = require('axios');
-
 const eventStore = new EventStore({
   state: {
-    name: 'wf',
-    friends: ['abc', 'cba', 'nba'],
-    banners: [],
-    recommends: [],
+    name: 'wangfeng',
+    age: '20',
+    gender: '男',
+    skill: ['code', 'JavaScript', 'vue', 'React'],
+    slogan: '',
+    data: {},
   },
-  actions: {
-    getHomeMultidata(ctx) {
-      console.log(ctx);
-      axios.get('http://123.207.32.32:8000/home/multidata').then((res) => {
-        const banner = res.data.data.banner;
-        const recommend = res.data.data.recommend;
-        // 赋值
-        ctx.banners = banner;
-        ctx.recommends = recommend;
+  action: {
+    fetchGetPersongInfoForyou(ctx, { success }) {
+      axios.get('http://localhost:3000/getinfo').then((res) => {
+        ctx.slogan = res.data.slogan;
       });
+      console.log(success);
     },
-    changenameadta(ctx, data) {
-      ctx.state = data;
+    changeStatedata(ctx, data) {
+      console.log(data);
+      ctx.data = data;
     },
   },
 });
+// 1.监听测试
+// const eventhandelfunction = (newValue) => {
+//   console.log('监听到', newValue);
+// };
+// eventStore.onState('name', eventhandelfunction);
+// setTimeout(() => {
+//   eventStore.setState('name', 'wangfeng1');
+// }, 2000);
 
-// 数据监听
-eventStore.onState('name', (value) => {
-  console.log('监听name:', value);
-  // this.changenameadta(value);
-});
+// 2.监听测试s版本
+// const eventhandelfunction = (newValue) => {
+//   console.log('监听到', newValue);
+// };
+// eventStore.onStates(['name', 'skill'], eventhandelfunction);
+// setTimeout(() => {
+//   eventStore.setState('skill', ['1', '2', '3', '4']);
+// }, 2000);
+// setTimeout(() => {
+//   eventStore.setState('name', 'Joon');
+// }, 4000);
 
-// eventStore.onState("friends", (value) => {
-//   console.log("监听friends:", value)
-// })
+// 3.取消监听测试s版本
+// const eventhandelfunction = (newValue) => {
+//   console.log('监听到', newValue);
+// };
+// eventStore.onStates(['name', 'skill'], eventhandelfunction);
+// eventStore.offStates(['name', 'skill'], eventhandelfunction);
+// setTimeout(() => {
+//   eventStore.setState('skill', ['1', '2', '3', '4']);
+// }, 2000);
 
-// eventStore.onState("banners", (value) => {
-//   console.log("监听banners:", value)
-// })
+// 4.取消监听测试
+// const eventhandelfunction = (newValue) => {
+//   console.log('监听到', newValue);
+// };
+// eventStore.onState('name', eventhandelfunction);
+// eventStore.offState('name', eventhandelfunction);
+// setTimeout(() => {
+//   eventStore.setState('name', 'wangfeng1');
+// }, 2000);
 
-// eventStore.onState("recommends", (value) => {
-//   console.log("监听recommends", value)
-// })
-
-// 同时监听多个数据
-// eventStore.onStates(["name", "friends"], (value) => {
-//   console.log("监听多个数据:", value) // 数组类型
-// })
-
-// 数据变化
-setTimeout(() => {
-  eventStore.setState('name', { name: 'wangfeng1' });
-  eventStore.setState('friends', ['kobe', 'james']);
-}, 1000);
-// console.log(eventStore.state);
-
-// eventStore.dispatch("getHomeMultidata")
+// 5.测试Dispatch
+const payload = {
+  success: '你成功了',
+};
+const info = {
+  name: 'JoonStore',
+  state: 'dev',
+};
+eventStore.dispatch('fetchGetPersongInfoForyou', payload);
+eventStore.dispatch('changeStatedata', info);
+console.log(eventStore.state);
