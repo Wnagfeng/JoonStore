@@ -1,4 +1,4 @@
-<div  class="box"  style="    display: flex;    justify-content: center;    align-items: center;    flex-direction: column; ">  <h1 align="center">Welcome to VuecomponentLibs 👋</h1> 
+<div  class="box"  style="    display: flex;    justify-content: center;    align-items: center;    flex-direction: column; ">  <h1 align="center">Welcome to JoonStore 👋</h1> 
      <h2 align="center"> 一款基于EventBus的EventStore(全局状态管理)  😀</h2> 
      <h2 align="center"> CoderJoon  🐂</h2> 
 
