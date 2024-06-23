@@ -1,8 +1,6 @@
 <div  class="box"  style="    display: flex;    justify-content: center;    align-items: center;    flex-direction: column; ">  <h1 align="center">Welcome to JoonStore 👋</h1> 
      <h2 align="center"> 一款基于EventBus的EventStore(全局状态管理)  😀</h2> 
-     <h2 align="center"> CoderJoon  🐂</h2> 
-
-
+     <h2 align="center"> CoderJoon  🐂</h2>
 
 # JoonStore
 
@@ -34,13 +32,13 @@ npm install joonstore
 
   ```js
   const changename = (arg) => {
-    console.log('他改名字了，传递的参数是' + arg);
+    console.log("他改名字了，传递的参数是" + arg);
   };
 
-  eventbus.on('changename', changename);
+  eventbus.on("changename", changename);
 
   setTimeout(() => {
-    eventbus.emit('changename', ['Joon', 'Thomas']);
+    eventbus.emit("changename", ["Joon", "Thomas"]);
   }, 3000);
   ```
 
@@ -48,14 +46,14 @@ npm install joonstore
 
   ```js
   const changename = (arg) => {
-    console.log('他改名字了，传递的参数是' + arg);
+    console.log("他改名字了，传递的参数是" + arg);
   };
 
-  eventbus.on('changename', changename);
-  eventbus.off('changename', changename);
+  eventbus.on("changename", changename);
+  eventbus.off("changename", changename);
 
   setTimeout(() => {
-    eventbus.emit('changename', ['Joon', 'Thomas']);
+    eventbus.emit("changename", ["Joon", "Thomas"]);
   }, 3000);
   ```
 
@@ -63,18 +61,18 @@ npm install joonstore
 
   ```js
   const changename = (arg) => {
-    console.log('他改名字了，传递的参数是' + arg);
+    console.log("他改名字了，传递的参数是" + arg);
   };
 
-  eventbus.once('changename', changename);
+  eventbus.once("changename", changename);
 
   // 触发一：
   setTimeout(() => {
-    eventbus.emit('changename', ['Joon', 'Thomas']);
+    eventbus.emit("changename", ["Joon", "Thomas"]);
   }, 3000);
   // 触发二：
   setTimeout(() => {
-    eventbus.emit('changename', ['Joon1', 'Thomas1']);
+    eventbus.emit("changename", ["Joon1", "Thomas1"]);
   }, 4000);
   ```
 
@@ -82,32 +80,32 @@ npm install joonstore
 
   ```js
   const changename = (arg) => {
-    console.log('他改名字了，传递的参数是' + arg);
+    console.log("他改名字了，传递的参数是" + arg);
   };
 
-  eventbus.once('changename', changename);
+  eventbus.once("changename", changename);
   eventbus.clear();
 
   // 触发一：
   setTimeout(() => {
-    eventbus.emit('changename', ['Joon', 'Thomas']);
+    eventbus.emit("changename", ["Joon", "Thomas"]);
   }, 3000);
   // 触发二：
   setTimeout(() => {
-    eventbus.emit('changename', ['Joon1', 'Thomas1']);
+    eventbus.emit("changename", ["Joon1", "Thomas1"]);
   }, 4000);
   ```
 
-- Hasevent 方法 (Hasevent  method)
+- Hasevent 方法 (Hasevent method)
 
   ```js
   const changename = (arg) => {
-    console.log('他改名字了，传递的参数是' + arg);
+    console.log("他改名字了，传递的参数是" + arg);
   };
-  
-  eventbus.once('changename', changename);
-  
-  console.log(eventbus.hasEvent('changename'));
+
+  eventbus.once("changename", changename);
+
+  console.log(eventbus.hasEvent("changename"));
   ```
 
 ## 2.2 事件共享(EventStore)
@@ -118,88 +116,78 @@ npm install joonstore
 
 #### 使用步骤：
 
-* 引入库
+- 引入库
 
   Ingest libraries
 
-* 格式化数据(我们建议您按照Demo去格式化数据)
+- 格式化数据(我们建议您按照 Demo 去格式化数据)
 
   Format data (we recommend that you follow the demo to format data)
 
-
-
-* 监听(Snoop test)
+- 监听(Snoop test)
 
   ```js
   const eventhandelfunction = (newValue) => {
-    console.log('监听到', newValue);
+    console.log("监听到", newValue);
   };
-  eventStore.onState('name', eventhandelfunction);
+  eventStore.onState("name", eventhandelfunction);
   setTimeout(() => {
-    eventStore.setState('name', 'wangfeng1');
+    eventStore.setState("name", "wangfeng1");
   }, 2000);
-  
   ```
 
-* 多个数据监听(Multiple data listeners)
+- 多个数据监听(Multiple data listeners)
 
   ```js
   const eventhandelfunction = (newValue) => {
-    console.log('监听到', newValue);
+    console.log("监听到", newValue);
   };
-  eventStore.onStates(['name', 'skill'], eventhandelfunction);
+  eventStore.onStates(["name", "skill"], eventhandelfunction);
   setTimeout(() => {
-    eventStore.setState('skill', ['1', '2', '3', '4']);
+    eventStore.setState("skill", ["1", "2", "3", "4"]);
   }, 2000);
   setTimeout(() => {
-    eventStore.setState('name', 'Joon');
+    eventStore.setState("name", "Joon");
   }, 4000);
   ```
 
-* 取消监听(Cancel listening)
+- 取消监听(Cancel listening)
 
   ```js
   const eventhandelfunction = (newValue) => {
-    console.log('监听到', newValue);
+    console.log("监听到", newValue);
   };
-  eventStore.onState('name', eventhandelfunction);
-  eventStore.offState('name', eventhandelfunction);
+  eventStore.onState("name", eventhandelfunction);
+  eventStore.offState("name", eventhandelfunction);
   setTimeout(() => {
-    eventStore.setState('name', 'wangfeng1');
+    eventStore.setState("name", "wangfeng1");
   }, 2000);
   ```
 
-* 多个数据监听取消(Multiple data listeners canceled)
+- 多个数据监听取消(Multiple data listeners canceled)
 
   ```js
   const eventhandelfunction = (newValue) => {
-    console.log('监听到', newValue);
+    console.log("监听到", newValue);
   };
-  eventStore.onStates(['name', 'skill'], eventhandelfunction);
-  eventStore.offStates(['name', 'skill'], eventhandelfunction);
+  eventStore.onStates(["name", "skill"], eventhandelfunction);
+  eventStore.offStates(["name", "skill"], eventhandelfunction);
   setTimeout(() => {
-    eventStore.setState('skill', ['1', '2', '3', '4']);
+    eventStore.setState("skill", ["1", "2", "3", "4"]);
   }, 2000);
   ```
 
-* Dispatch
+- Dispatch
 
   ```js
   const payload = {
-    success: '你成功了',
+    success: "你成功了",
   };
   const info = {
-    name: 'JoonStore',
-    state: 'dev',
+    name: "JoonStore",
+    state: "dev",
   };
-  eventStore.dispatch('fetchGetPersongInfoForyou', payload);
-  eventStore.dispatch('changeStatedata', info);
+  eventStore.dispatch("fetchGetPersongInfoForyou", payload);
+  eventStore.dispatch("changeStatedata", info);
   console.log(eventStore.state);
   ```
-
-  
-
-
-
-
-
